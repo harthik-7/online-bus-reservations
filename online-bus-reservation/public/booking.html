@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserve Seats & Booking | HARTHIKRAJ Online Bus Reservation System</title>
+  <meta name="description" content="Select your favorite seats on the interactive bus layout, enter passenger details, and confirm your ticket with instant digital booking on HARTHIKRAJ.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="HARTHIKRAJ Home">
+        <img src="images/logo.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+      </a>
+
+      <nav class="nav-links">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">
+            <i class="fa-solid fa-house"></i> Home
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">
+            <i class="fa-solid fa-circle-info"></i> About Us
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="buses.html" class="nav-link active">
+            <i class="fa-solid fa-bus"></i> Available Buses
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="my-bookings.html" class="nav-link">
+            <i class="fa-solid fa-ticket"></i> My Bookings
+          </a>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navAuthContainer">
+          <a href="login.html" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-user-circle"></i> Login / Register
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation Drawer">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <aside class="mobile-nav-drawer">
+    <a href="index.html" class="mobile-nav-link">
+      <i class="fa-solid fa-house"></i> Home
+    </a>
+    <a href="about.html" class="mobile-nav-link">
+      <i class="fa-solid fa-circle-info"></i> About Us
+    </a>
+    <a href="buses.html" class="mobile-nav-link active">
+      <i class="fa-solid fa-bus"></i> Available Buses
+    </a>
+    <a href="my-bookings.html" class="mobile-nav-link">
+      <i class="fa-solid fa-ticket"></i> My Bookings
+    </a>
+    <div class="mobile-nav-actions" id="mobileNavActions">
+      <a href="login.html" class="btn btn-primary">
+        <i class="fa-solid fa-user-circle"></i> Login / Register
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       PROGRESS STEPS TRACKER
+       ========================================================================== -->
+  <div class="booking-steps-bar">
+    <div class="container">
+      <div class="steps-tracker">
+        <div class="track-step completed">
+          <div class="track-step-circle"><i class="fa-solid fa-check"></i></div>
+          <span>1. Select Bus</span>
+        </div>
+        <div class="track-divider"></div>
+        <div class="track-step active">
+          <div class="track-step-circle">2</div>
+          <span>2. Choose Seats & Details</span>
+        </div>
+        <div class="track-divider"></div>
+        <div class="track-step">
+          <div class="track-step-circle">3</div>
+          <span>3. Confirm & Ticket</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="section-sm">
+    <div class="container">
+      
+      <!-- SELECTED BUS DETAILS HEADER BANNER -->
+      <div id="selectedBusBanner" class="selected-bus-banner">
+        <!-- Rendered dynamically via booking.js -->
+      </div>
+
+      <!-- MAIN BOOKING GRID: SEAT MAP & PASSENGER CHECKOUT -->
+      <div class="booking-grid">
+        
+        <!-- LEFT COLUMN: INTERACTIVE BUS SEAT LAYOUT -->
+        <section class="seat-selection-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+            <div>
+              <h3 style="font-size:1.35rem; color:var(--primary);">
+                <i class="fa-solid fa-couch" style="color:var(--accent);"></i> Interactive Seat Layout
+              </h3>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Click any available seat or berth to reserve (Max 6 seats)</p>
+            </div>
+            
+            <!-- Deck Switcher -->
+            <div class="deck-tabs">
+              <button class="deck-tab-btn active" id="btnDeckLower">
+                <i class="fa-solid fa-layer-group"></i> Lower Deck
+              </button>
+              <button class="deck-tab-btn" id="btnDeckUpper">
+                <i class="fa-solid fa-arrow-up-from-bracket"></i> Upper Deck
+              </button>
+            </div>
+          </div>
+
+          <!-- Color Swatch Legend -->
+          <div class="seat-legend">
+            <div class="legend-item">
+              <div class="legend-swatch available"></div>
+              <span>Available</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch selected"></div>
+              <span>Selected</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch booked"></div>
+              <span>Booked</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-swatch ladies"></div>
+              <span>Ladies Reserved</span>
+            </div>
+          </div>
+
+          <!-- Bus Cabin Structure Graphic -->
+          <div class="bus-cabin">
+            <!-- Bus Front / Driver Steering Wheel -->
+            <div class="bus-front-header">
+              <img src="images/driver-icon.svg" alt="Driver Cabin" class="driver-wheel" title="Driver Cabin">
+              <span class="front-text"><i class="fa-solid fa-chevron-up"></i> Front of Coach</span>
+              <div style="font-size:0.8rem; color:var(--text-light);"><i class="fa-solid fa-door-open" title="Main Entrance Door"></i> Entrance</div>
+            </div>
+
+            <!-- Dynamic Graphic Seats Layout Container -->
+            <div id="seatsLayoutGrid" class="seats-layout-grid">
+              <!-- Rendered via booking.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT COLUMN: PASSENGER FORM & FARE SUMMARY PANEL -->
+        <section class="checkout-panel">
+          
+          <form id="bookingCheckoutForm">
+            <!-- 1. Passenger Details Card -->
+            <div class="checkout-card">
+              <h3><i class="fa-solid fa-user-group" style="color:var(--secondary);"></i> Passenger Information</h3>
+              
+              <!-- Primary Contact Info -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="contactEmail">Email Address (for M-Ticket) *</label>
+                  <input type="email" id="contactEmail" class="form-control" placeholder="name@example.com" required>
+                </div>
+                <div class="form-group">
+                  <label for="contactPhone">Mobile Number (for SMS & GPS) *</label>
+                  <input type="tel" id="contactPhone" class="form-control" placeholder="+91 98765 43210" required>
+                </div>
+              </div>
+
+              <!-- Boarding & Dropping Points -->
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label for="boardingPointSelect"><i class="fa-solid fa-location-arrow"></i> Boarding Point *</label>
+                  <select id="boardingPointSelect" class="form-control" required>
+                    <!-- Populated via booking.js -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="droppingPointSelect"><i class="fa-solid fa-location-dot"></i> Dropping Point *</label>
+                  <select id="droppingPointSelect" class="form-control" required>
+                    <!-- Populated via booking.js -->
+                  </select>
+                </div>
+              </div>
+
+              <div style="border-top:1px dashed var(--border-color); margin:1.25rem 0; padding-top:1rem;">
+                <label style="font-weight:700; font-size:0.9rem; color:var(--primary); margin-bottom:0.75rem; display:block;">
+                  Seat-Specific Passenger Details:
+                </label>
+                <!-- Dynamic inputs based on seats selected -->
+                <div id="dynamicPassengerFields">
+                  <!-- Generated via booking.js -->
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Fare Summary & Coupon Card -->
+            <div class="checkout-card" style="margin-top:1.5rem;">
+              <h3><i class="fa-solid fa-receipt" style="color:var(--secondary);"></i> Fare & Booking Summary</h3>
+              
+              <div style="margin-bottom:1rem;">
+                <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Selected Seats:</label>
+                <div class="selected-seats-badge-list" id="selectedSeatsBadgeList">
+                  <span style="font-size:0.85rem; color:var(--text-muted); font-style:italic;">No seats selected yet.</span>
+                </div>
+              </div>
+
+              <!-- Apply Coupon Code -->
+              <div class="coupon-input-group">
+                <input type="text" id="couponCodeInput" class="form-control" placeholder="Promo Code (e.g. FIRSTTRIP)">
+                <button type="button" class="btn btn-secondary btn-sm" id="applyCouponBtn">Apply</button>
+              </div>
+
+              <!-- Fare Breakdown Breakdown -->
+              <div class="fare-line">
+                <span>Selected Seats Count</span>
+                <strong id="selectedSeatsCount" style="color:var(--primary);">0 Seats</strong>
+              </div>
+              <div class="fare-line">
+                <span>Base Ticket Fare</span>
+                <span id="summaryBaseFare">₹0</span>
+              </div>
+              <div class="fare-line">
+                <span>GST & Toll Surcharge (5%)</span>
+                <span id="summaryGst">₹0</span>
+              </div>
+              <div class="fare-line" id="summaryDiscountLine" style="display:none; color:var(--success);">
+                <span>Promo Discount</span>
+                <span id="summaryDiscountVal">- ₹0</span>
+              </div>
+              <div class="fare-line total-line">
+                <span>Total Amount</span>
+                <span id="summaryTotalPayable" style="color:var(--accent);">₹0</span>
+              </div>
+
+              <!-- Terms Checkbox -->
+              <label class="custom-checkbox-item" style="margin: 1.25rem 0 1.5rem 0; font-size:0.82rem;">
+                <input type="checkbox" required checked>
+                <span>I agree to the <a href="#" style="color:var(--secondary); text-decoration:underline;">Cancellation Policy</a> and Passenger Safety Terms.</span>
+              </label>
+
+              <!-- Confirm Booking Button -->
+              <button type="submit" class="btn btn-accent btn-lg" id="confirmBookingBtn" style="width:100%;" disabled>
+                <i class="fa-solid fa-lock"></i> Confirm & Book Ticket
+              </button>
+            </div>
+          </form>
+
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col-brand">
+          <a href="index.html">
+            <img src="images/logo-white.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+          </a>
+          <p>
+            HARTHIKRAJ is India's leading digital passenger transportation network, connecting cities through ultra-modern luxury coaches with safety, punctuality, and passenger delight.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+            <li><a href="buses.html"><i class="fa-solid fa-angle-right"></i> Available Buses</a></li>
+            <li><a href="my-bookings.html"><i class="fa-solid fa-angle-right"></i> My Bookings</a></li>
+            <li><a href="login.html"><i class="fa-solid fa-angle-right"></i> Login / Register</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Top Bus Routes</h4>
+          <ul class="footer-links">
+            <li><a href="buses.html?from=Chennai&to=Bangalore"><i class="fa-solid fa-angle-right"></i> Chennai to Bangalore</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Hyderabad"><i class="fa-solid fa-angle-right"></i> Bangalore to Hyderabad</a></li>
+            <li><a href="buses.html?from=Chennai&to=Coimbatore"><i class="fa-solid fa-angle-right"></i> Chennai to Coimbatore</a></li>
+            <li><a href="buses.html?from=Mumbai&to=Pune"><i class="fa-solid fa-angle-right"></i> Mumbai to Pune</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Kochi"><i class="fa-solid fa-angle-right"></i> Bangalore to Kochi</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>24x7 Help Desk</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Passenger Helpline:</strong>
+              1800-2026-RAJ (Toll Free) / +91 44 2889 0000
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Email Support:</strong>
+              support@harthikrajbus.com
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <div>
+          &copy; 2026 <strong>HARTHIKRAJ ONLINE BUS RESERVATION SYSTEM</strong>. All rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/booking.js"></script>
+</body>
+</html>

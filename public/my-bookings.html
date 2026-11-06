@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Passenger Dashboard & My Bookings | HARTHIKRAJ Online Bus Reservation System</title>
+  <meta name="description" content="View and manage your upcoming bus journeys, past travel history, digital tickets, and cancellation requests on HARTHIKRAJ dashboard.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="HARTHIKRAJ Home">
+        <img src="images/logo.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+      </a>
+
+      <nav class="nav-links">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">
+            <i class="fa-solid fa-house"></i> Home
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">
+            <i class="fa-solid fa-circle-info"></i> About Us
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="buses.html" class="nav-link">
+            <i class="fa-solid fa-bus"></i> Available Buses
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="my-bookings.html" class="nav-link active">
+            <i class="fa-solid fa-ticket"></i> My Bookings
+          </a>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navAuthContainer">
+          <!-- Populated with user avatar from main.js -->
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation Drawer">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <aside class="mobile-nav-drawer">
+    <a href="index.html" class="mobile-nav-link">
+      <i class="fa-solid fa-house"></i> Home
+    </a>
+    <a href="about.html" class="mobile-nav-link">
+      <i class="fa-solid fa-circle-info"></i> About Us
+    </a>
+    <a href="buses.html" class="mobile-nav-link">
+      <i class="fa-solid fa-bus"></i> Available Buses
+    </a>
+    <a href="my-bookings.html" class="mobile-nav-link active">
+      <i class="fa-solid fa-ticket"></i> My Bookings
+    </a>
+    <div class="mobile-nav-actions" id="mobileNavActions">
+      <!-- Injected from main.js -->
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       MAIN PASSENGER DASHBOARD CONTENT
+       ========================================================================== -->
+  <main class="section-sm">
+    <div class="container">
+      
+      <div class="dashboard-layout">
+        
+        <!-- ==========================================
+             1. DASHBOARD SIDEBAR (USER PROFILE & NAV)
+             ========================================== -->
+        <aside class="dashboard-sidebar">
+          <div class="user-profile-widget">
+            <div class="user-big-avatar" id="dashProfileAvatar">HR</div>
+            <h3 id="dashProfileName">Harthik Raj</h3>
+            <p id="dashProfileEmail">harthikraj@example.com</p>
+            <div class="tier-badge" id="dashProfileTier">
+              <i class="fa-solid fa-crown" style="color:#D97706;"></i> Gold Member
+            </div>
+          </div>
+
+          <nav class="dashboard-nav-menu">
+            <div class="dash-nav-item active">
+              <i class="fa-solid fa-ticket"></i>
+              <span>My Bookings</span>
+            </div>
+            <div class="dash-nav-item" onclick="showToast('Travel history synchronized with account.', 'info')">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span>Travel History</span>
+            </div>
+            <div class="dash-nav-item" onclick="showToast('Account Settings are up to date.', 'info')">
+              <i class="fa-solid fa-gear"></i>
+              <span>Account Settings</span>
+            </div>
+            <div class="dash-nav-item logout" id="dashLogoutBtn">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <span>Log Out</span>
+            </div>
+          </nav>
+        </aside>
+
+        <!-- ==========================================
+             2. DASHBOARD CONTENT (STATS & BOOKINGS)
+             ========================================== -->
+        <section class="dash-content">
+          
+          <!-- Quick KPI Counters -->
+          <div class="dash-stats-grid">
+            <!-- Total -->
+            <div class="dash-stat-card">
+              <div class="dash-stat-icon blue">
+                <i class="fa-solid fa-receipt"></i>
+              </div>
+              <div class="dash-stat-info">
+                <h4 id="statTotalBookings">3</h4>
+                <span>Total Bookings</span>
+              </div>
+            </div>
+
+            <!-- Upcoming -->
+            <div class="dash-stat-card">
+              <div class="dash-stat-icon green">
+                <i class="fa-solid fa-bus-simple"></i>
+              </div>
+              <div class="dash-stat-info">
+                <h4 id="statUpcoming">1</h4>
+                <span>Upcoming Trips</span>
+              </div>
+            </div>
+
+            <!-- Completed -->
+            <div class="dash-stat-card">
+              <div class="dash-stat-icon orange">
+                <i class="fa-solid fa-circle-check"></i>
+              </div>
+              <div class="dash-stat-info">
+                <h4 id="statCompleted">2</h4>
+                <span>Completed Journeys</span>
+              </div>
+            </div>
+
+            <!-- Cancelled -->
+            <div class="dash-stat-card">
+              <div class="dash-stat-icon red">
+                <i class="fa-solid fa-ban"></i>
+              </div>
+              <div class="dash-stat-info">
+                <h4 id="statCancelled">0</h4>
+                <span>Cancelled</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bookings Table Card -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div>
+                <h3 style="font-size:1.35rem; color:var(--primary); margin-bottom:0.25rem;">
+                  <i class="fa-solid fa-list-check" style="color:var(--secondary);"></i> My Travel Reservations
+                </h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Manage upcoming trips, view printable digital boarding passes, or cancel bookings.</p>
+              </div>
+
+              <!-- Filter Pills -->
+              <div class="booking-filter-tabs">
+                <button class="filter-tab-pill active" data-filter="all">All</button>
+                <button class="filter-tab-pill" data-filter="upcoming">Upcoming</button>
+                <button class="filter-tab-pill" data-filter="completed">Completed</button>
+                <button class="filter-tab-pill" data-filter="cancelled">Cancelled</button>
+              </div>
+            </div>
+
+            <!-- Responsive Table -->
+            <div class="table-responsive">
+              <table class="bookings-table">
+                <thead>
+                  <tr>
+                    <th>Booking ID</th>
+                    <th>Bus Service</th>
+                    <th>Route</th>
+                    <th>Date & Time</th>
+                    <th>Seat(s)</th>
+                    <th>Total Fare</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="bookingsTableBody">
+                  <!-- Populated dynamically via my-bookings.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- New Booking Prompt CTA -->
+            <div style="background:var(--secondary-lighter); border:1px solid rgba(23, 105, 170, 0.15); border-radius:12px; padding:1.25rem; margin-top:2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+              <div>
+                <strong style="color:var(--primary); font-size:1rem; display:block;">Planning another trip?</strong>
+                <span style="font-size:0.85rem; color:var(--text-muted);">Explore over 10,000 daily routes with guaranteed seats and instant e-tickets.</span>
+              </div>
+              <a href="buses.html" class="btn btn-accent btn-sm">
+                <i class="fa-solid fa-bus"></i> Search & Book Buses
+              </a>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col-brand">
+          <a href="index.html">
+            <img src="images/logo-white.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+          </a>
+          <p>
+            HARTHIKRAJ is India's leading digital passenger transportation network, connecting cities through ultra-modern luxury coaches with safety, punctuality, and passenger delight.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+            <li><a href="buses.html"><i class="fa-solid fa-angle-right"></i> Available Buses</a></li>
+            <li><a href="my-bookings.html"><i class="fa-solid fa-angle-right"></i> My Bookings</a></li>
+            <li><a href="login.html"><i class="fa-solid fa-angle-right"></i> Login / Register</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Top Bus Routes</h4>
+          <ul class="footer-links">
+            <li><a href="buses.html?from=Chennai&to=Bangalore"><i class="fa-solid fa-angle-right"></i> Chennai to Bangalore</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Hyderabad"><i class="fa-solid fa-angle-right"></i> Bangalore to Hyderabad</a></li>
+            <li><a href="buses.html?from=Chennai&to=Coimbatore"><i class="fa-solid fa-angle-right"></i> Chennai to Coimbatore</a></li>
+            <li><a href="buses.html?from=Mumbai&to=Pune"><i class="fa-solid fa-angle-right"></i> Mumbai to Pune</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Kochi"><i class="fa-solid fa-angle-right"></i> Bangalore to Kochi</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>24x7 Help Desk</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Passenger Helpline:</strong>
+              1800-2026-RAJ (Toll Free) / +91 44 2889 0000
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Email Support:</strong>
+              support@harthikrajbus.com
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <div>
+          &copy; 2026 <strong>HARTHIKRAJ ONLINE BUS RESERVATION SYSTEM</strong>. All rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/my-bookings.js"></script>
+</body>
+</html>

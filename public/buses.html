@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Buses | HARTHIKRAJ Online Bus Reservation System</title>
+  <meta name="description" content="Search and compare available luxury buses on HARTHIKRAJ. Filter by departure time, bus type, and price to find your perfect journey.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="HARTHIKRAJ Home">
+        <img src="images/logo.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+      </a>
+
+      <nav class="nav-links">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">
+            <i class="fa-solid fa-house"></i> Home
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">
+            <i class="fa-solid fa-circle-info"></i> About Us
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="buses.html" class="nav-link active">
+            <i class="fa-solid fa-bus"></i> Available Buses
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="my-bookings.html" class="nav-link">
+            <i class="fa-solid fa-ticket"></i> My Bookings
+          </a>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navAuthContainer">
+          <a href="login.html" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-user-circle"></i> Login / Register
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation Drawer">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <aside class="mobile-nav-drawer">
+    <a href="index.html" class="mobile-nav-link">
+      <i class="fa-solid fa-house"></i> Home
+    </a>
+    <a href="about.html" class="mobile-nav-link">
+      <i class="fa-solid fa-circle-info"></i> About Us
+    </a>
+    <a href="buses.html" class="mobile-nav-link active">
+      <i class="fa-solid fa-bus"></i> Available Buses
+    </a>
+    <a href="my-bookings.html" class="mobile-nav-link">
+      <i class="fa-solid fa-ticket"></i> My Bookings
+    </a>
+    <div class="mobile-nav-actions" id="mobileNavActions">
+      <a href="login.html" class="btn btn-primary">
+        <i class="fa-solid fa-user-circle"></i> Login / Register
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       TOP SEARCH & ROUTE MODIFICATION STRIP
+       ========================================================================== -->
+  <div class="search-strip-bar">
+    <div class="container">
+      <div class="search-strip-content">
+        <div class="search-strip-summary">
+          <div class="route-display" id="stripRouteDisplay">
+            All Scheduled Routes
+          </div>
+          <div class="date-display" id="stripDateDisplay">
+            <i class="fa-regular fa-calendar-check"></i> Select Date
+          </div>
+        </div>
+
+        <div>
+          <button class="btn btn-outline-white btn-sm" id="btnToggleModifySearch" onclick="toggleModifyBox()">
+            <i class="fa-solid fa-pen-to-square"></i> Modify Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Expandable Modify Search Box -->
+      <div id="modifySearchDrawer" style="display:none; margin-top:1.25rem; padding-top:1.25rem; border-top:1px solid rgba(255,255,255,0.15);">
+        <form id="modifySearchForm" style="display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:1rem; align-items:center;">
+          <input type="text" id="modifyFrom" placeholder="Source City" style="padding:0.65rem 1rem; border-radius:8px; border:none; outline:none;" required>
+          <input type="text" id="modifyTo" placeholder="Destination City" style="padding:0.65rem 1rem; border-radius:8px; border:none; outline:none;" required>
+          <input type="date" id="modifyDate" style="padding:0.65rem 1rem; border-radius:8px; border:none; outline:none;" required>
+          <button type="submit" class="btn btn-accent">
+            <i class="fa-solid fa-magnifying-glass"></i> Update
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MAIN BUSES RESULTS & FILTER SIDEBAR LAYOUT
+       ========================================================================== -->
+  <main class="section-sm">
+    <div class="container">
+      <div class="buses-page-layout">
+        
+        <!-- FILTER SIDEBAR -->
+        <aside class="filter-sidebar">
+          <div class="filter-header">
+            <h3><i class="fa-solid fa-filter" style="color:var(--secondary);"></i> Filters</h3>
+            <button class="btn-reset-filters" id="resetFiltersBtn">Reset All</button>
+          </div>
+
+          <!-- Filter 1: Departure Time Slots -->
+          <div class="filter-group">
+            <div class="filter-title">
+              <span>Departure Time</span>
+            </div>
+            <div class="time-slot-grid">
+              <div class="time-slot-btn" data-slot="morning">
+                <i class="fa-solid fa-sun"></i>
+                <span>Morning</span>
+                <small>06:00 - 12:00</small>
+              </div>
+              <div class="time-slot-btn" data-slot="afternoon">
+                <i class="fa-solid fa-cloud-sun"></i>
+                <span>Afternoon</span>
+                <small>12:00 - 18:00</small>
+              </div>
+              <div class="time-slot-btn" data-slot="evening">
+                <i class="fa-solid fa-cloud-moon"></i>
+                <span>Evening</span>
+                <small>18:00 - 23:00</small>
+              </div>
+              <div class="time-slot-btn" data-slot="night">
+                <i class="fa-solid fa-moon"></i>
+                <span>Night</span>
+                <small>23:00 - 06:00</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter 2: Bus Types -->
+          <div class="filter-group">
+            <div class="filter-title">
+              <span>Bus Fleet Type</span>
+            </div>
+            <label class="custom-checkbox-item">
+              <input type="checkbox" class="category-filter" value="ac_sleeper">
+              <span>AC Sleeper (2+1)</span>
+            </label>
+            <label class="custom-checkbox-item">
+              <input type="checkbox" class="category-filter" value="volvo_ac">
+              <span>Volvo Multi-Axle AC</span>
+            </label>
+            <label class="custom-checkbox-item">
+              <input type="checkbox" class="category-filter" value="bharatbenz">
+              <span>BharatBenz Grand Luxury</span>
+            </label>
+            <label class="custom-checkbox-item">
+              <input type="checkbox" class="category-filter" value="non_ac">
+              <span>Non-AC Deluxe Seater</span>
+            </label>
+          </div>
+
+          <!-- Filter 3: Maximum Price Range -->
+          <div class="filter-group">
+            <div class="filter-title">
+              <span>Price Range</span>
+              <span id="maxPriceVal" style="color:var(--secondary); font-weight:800;">₹2000</span>
+            </div>
+            <div class="price-slider-box">
+              <input type="range" class="range-slider" id="priceRangeSlider" min="500" max="2000" step="50" value="2000">
+              <div class="slider-values">
+                <span>₹500</span>
+                <span>₹2,000</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter 4: Seat Availability -->
+          <div class="filter-group">
+            <div class="filter-title">
+              <span>Availability</span>
+            </div>
+            <label class="custom-checkbox-item">
+              <input type="checkbox" id="filterMinSeats">
+              <span>Show 5+ Seats Available</span>
+            </label>
+          </div>
+
+          <!-- Trust Callout -->
+          <div style="background:var(--secondary-lighter); padding:1rem; border-radius:8px; border:1px solid rgba(23,105,170,0.15); margin-top:1.5rem; font-size:0.8rem; color:var(--text-dark);">
+            <i class="fa-solid fa-shield-halved" style="color:var(--secondary); margin-right:0.3rem;"></i>
+            <strong>HARTHIKRAJ Assurance:</strong> Instant refunds & sanitized coaches on all routes.
+          </div>
+        </aside>
+
+        <!-- BUS LISTING RESULTS -->
+        <section class="buses-results-col">
+          <!-- Results Header & Sort Controls -->
+          <div class="buses-results-header">
+            <div class="results-count" id="resultCountBadge">Loading Available Buses...</div>
+            
+            <div class="sort-options">
+              <label for="busSortSelect"><i class="fa-solid fa-arrow-down-wide-short"></i> Sort By:</label>
+              <select id="busSortSelect" class="sort-select">
+                <option value="cheapest">Cheapest First</option>
+                <option value="fastest">Fastest Journey</option>
+                <option value="earliest">Earliest Departure</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Container for Bus Cards -->
+          <div id="busListingContainer">
+            <!-- Rendered via buses.js -->
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col-brand">
+          <a href="index.html">
+            <img src="images/logo-white.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+          </a>
+          <p>
+            HARTHIKRAJ is India's leading digital passenger transportation network, connecting cities through ultra-modern luxury coaches with safety, punctuality, and passenger delight.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+            <li><a href="buses.html"><i class="fa-solid fa-angle-right"></i> Available Buses</a></li>
+            <li><a href="my-bookings.html"><i class="fa-solid fa-angle-right"></i> My Bookings</a></li>
+            <li><a href="login.html"><i class="fa-solid fa-angle-right"></i> Login / Register</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Top Bus Routes</h4>
+          <ul class="footer-links">
+            <li><a href="buses.html?from=Chennai&to=Bangalore"><i class="fa-solid fa-angle-right"></i> Chennai to Bangalore</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Hyderabad"><i class="fa-solid fa-angle-right"></i> Bangalore to Hyderabad</a></li>
+            <li><a href="buses.html?from=Chennai&to=Coimbatore"><i class="fa-solid fa-angle-right"></i> Chennai to Coimbatore</a></li>
+            <li><a href="buses.html?from=Mumbai&to=Pune"><i class="fa-solid fa-angle-right"></i> Mumbai to Pune</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Kochi"><i class="fa-solid fa-angle-right"></i> Bangalore to Kochi</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>24x7 Help Desk</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Passenger Helpline:</strong>
+              1800-2026-RAJ (Toll Free) / +91 44 2889 0000
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Email Support:</strong>
+              support@harthikrajbus.com
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <div>
+          &copy; 2026 <strong>HARTHIKRAJ ONLINE BUS RESERVATION SYSTEM</strong>. All rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/buses.js"></script>
+  <script>
+    function toggleModifyBox() {
+      const drawer = document.getElementById('modifySearchDrawer');
+      if (!drawer) return;
+      drawer.style.display = drawer.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>

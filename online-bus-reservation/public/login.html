@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Registration | HARTHIKRAJ Online Bus Reservation System</title>
+  <meta name="description" content="Sign in or create a passenger account on HARTHIKRAJ to track live bookings, manage travel history, and access exclusive member fares.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="index.html" class="brand-logo" aria-label="HARTHIKRAJ Home">
+        <img src="images/logo.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+      </a>
+
+      <nav class="nav-links">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link">
+            <i class="fa-solid fa-house"></i> Home
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">
+            <i class="fa-solid fa-circle-info"></i> About Us
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="buses.html" class="nav-link">
+            <i class="fa-solid fa-bus"></i> Available Buses
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="my-bookings.html" class="nav-link">
+            <i class="fa-solid fa-ticket"></i> My Bookings
+          </a>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navAuthContainer">
+          <a href="login.html" class="btn btn-primary btn-sm active">
+            <i class="fa-solid fa-user-circle"></i> Login / Register
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation Drawer">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <aside class="mobile-nav-drawer">
+    <a href="index.html" class="mobile-nav-link">
+      <i class="fa-solid fa-house"></i> Home
+    </a>
+    <a href="about.html" class="mobile-nav-link">
+      <i class="fa-solid fa-circle-info"></i> About Us
+    </a>
+    <a href="buses.html" class="mobile-nav-link">
+      <i class="fa-solid fa-bus"></i> Available Buses
+    </a>
+    <a href="my-bookings.html" class="mobile-nav-link">
+      <i class="fa-solid fa-ticket"></i> My Bookings
+    </a>
+    <div class="mobile-nav-actions" id="mobileNavActions">
+      <a href="login.html" class="btn btn-primary">
+        <i class="fa-solid fa-user-circle"></i> Login / Register
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       AUTHENTICATION CARD (LOGIN & REGISTRATION)
+       ========================================================================== -->
+  <main class="auth-page-wrapper">
+    <div class="auth-container-card reveal">
+      
+      <!-- Card Top Brand Banner -->
+      <div class="auth-header">
+        <img src="images/logo-white.svg" alt="HARTHIKRAJ" class="auth-header-logo">
+        <h2>Passenger Account Portal</h2>
+        <p>Seamlessly manage your bookings, tickets and passenger perks</p>
+      </div>
+
+      <!-- Tab Switcher (Login vs Register) -->
+      <div class="auth-tabs">
+        <button class="auth-tab-btn active" data-tab="loginForm">
+          <i class="fa-solid fa-right-to-bracket"></i> Sign In
+        </button>
+        <button class="auth-tab-btn" data-tab="registerForm">
+          <i class="fa-solid fa-user-plus"></i> Create Account
+        </button>
+      </div>
+
+      <!-- Form Body Area -->
+      <div class="auth-body">
+        
+        <!-- ==========================================
+             1. LOGIN FORM
+             ========================================== -->
+        <form id="loginForm" class="auth-form active">
+          <!-- Email Address -->
+          <div class="form-group">
+            <label for="loginEmail"><i class="fa-solid fa-envelope"></i> Email Address</label>
+            <input type="email" id="loginEmail" class="form-control" placeholder="name@example.com" required>
+          </div>
+
+          <!-- Password with Toggle -->
+          <div class="form-group">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+              <label for="loginPassword" style="margin-bottom:0;"><i class="fa-solid fa-lock"></i> Password</label>
+              <a href="#" onclick="alert('Password reset link sent to demo email!'); return false;" style="font-size:0.78rem; font-weight:600;">Forgot Password?</a>
+            </div>
+            <div class="input-with-icon">
+              <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+              <button type="button" class="toggle-password" data-target="loginPassword" aria-label="Toggle password visibility">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Remember Me -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+            <label class="custom-checkbox-item" style="margin-bottom:0; font-size:0.85rem;">
+              <input type="checkbox" checked>
+              <span>Remember this device</span>
+            </label>
+          </div>
+
+          <!-- Login Button -->
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> Sign In to Account
+          </button>
+
+          <!-- Alternative Social Logins -->
+          <div style="text-align:center; margin-top:1.5rem; position:relative;">
+            <div style="height:1px; background:var(--border-color); margin-bottom:1.25rem;"></div>
+            <span style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:#FFFFFF; padding:0 0.75rem; font-size:0.75rem; color:var(--text-muted); font-weight:700;">OR CONTINUE WITH</span>
+            
+            <div style="display:flex; gap:0.75rem; justify-content:center;">
+              <button type="button" class="btn btn-outline btn-sm" style="flex:1;" onclick="showToast('Google Sign-In ready for production integration.', 'info')">
+                <i class="fa-brands fa-google" style="color:#DB4437;"></i> Google
+              </button>
+              <button type="button" class="btn btn-outline btn-sm" style="flex:1;" onclick="showToast('Apple ID Sign-In ready for production integration.', 'info')">
+                <i class="fa-brands fa-apple"></i> Apple ID
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- ==========================================
+             2. REGISTRATION FORM
+             ========================================== -->
+        <form id="registerForm" class="auth-form">
+          <!-- Full Name -->
+          <div class="form-group">
+            <label for="regName"><i class="fa-solid fa-user"></i> Full Name *</label>
+            <input type="text" id="regName" class="form-control" placeholder="e.g. Harthik Raj" required>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="regEmail"><i class="fa-solid fa-envelope"></i> Email Address *</label>
+            <input type="email" id="regEmail" class="form-control" placeholder="name@example.com" required>
+          </div>
+
+          <!-- Mobile Number -->
+          <div class="form-group">
+            <label for="regPhone"><i class="fa-solid fa-phone"></i> Mobile Number *</label>
+            <input type="tel" id="regPhone" class="form-control" placeholder="+91 98765 43210" required>
+          </div>
+
+          <!-- Password with Strength Meter -->
+          <div class="form-group">
+            <label for="regPassword"><i class="fa-solid fa-lock"></i> Create Password *</label>
+            <div class="input-with-icon">
+              <input type="password" id="regPassword" class="form-control" placeholder="At least 6 characters" minlength="6" required>
+              <button type="button" class="toggle-password" data-target="regPassword" aria-label="Toggle password visibility">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+            <div class="password-strength-bar">
+              <div id="strengthIndicator" class="strength-indicator"></div>
+            </div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <label for="regConfirmPassword"><i class="fa-solid fa-shield-halved"></i> Confirm Password *</label>
+              <span id="passwordMatchIndicator"></span>
+            </div>
+            <div class="input-with-icon">
+              <input type="password" id="regConfirmPassword" class="form-control" placeholder="Re-enter password" required>
+              <button type="button" class="toggle-password" data-target="regConfirmPassword" aria-label="Toggle password visibility">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Terms Checkbox -->
+          <label class="custom-checkbox-item" style="margin-bottom:1.5rem; font-size:0.82rem;">
+            <input type="checkbox" id="regTerms" required checked>
+            <span>I agree to the <a href="#" style="color:var(--secondary); text-decoration:underline;">Terms of Service</a> & <a href="#" style="color:var(--secondary); text-decoration:underline;">Privacy Policy</a>.</span>
+          </label>
+
+          <!-- Register Button -->
+          <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">
+            <i class="fa-solid fa-user-check"></i> Register Free Account
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col-brand">
+          <a href="index.html">
+            <img src="images/logo-white.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+          </a>
+          <p>
+            HARTHIKRAJ is India's leading digital passenger transportation network, connecting cities through ultra-modern luxury coaches with safety, punctuality, and passenger delight.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+            <li><a href="buses.html"><i class="fa-solid fa-angle-right"></i> Available Buses</a></li>
+            <li><a href="my-bookings.html"><i class="fa-solid fa-angle-right"></i> My Bookings</a></li>
+            <li><a href="login.html"><i class="fa-solid fa-angle-right"></i> Login / Register</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Top Bus Routes</h4>
+          <ul class="footer-links">
+            <li><a href="buses.html?from=Chennai&to=Bangalore"><i class="fa-solid fa-angle-right"></i> Chennai to Bangalore</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Hyderabad"><i class="fa-solid fa-angle-right"></i> Bangalore to Hyderabad</a></li>
+            <li><a href="buses.html?from=Chennai&to=Coimbatore"><i class="fa-solid fa-angle-right"></i> Chennai to Coimbatore</a></li>
+            <li><a href="buses.html?from=Mumbai&to=Pune"><i class="fa-solid fa-angle-right"></i> Mumbai to Pune</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Kochi"><i class="fa-solid fa-angle-right"></i> Bangalore to Kochi</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>24x7 Help Desk</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Passenger Helpline:</strong>
+              1800-2026-RAJ (Toll Free) / +91 44 2889 0000
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Email Support:</strong>
+              support@harthikrajbus.com
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <div>
+          &copy; 2026 <strong>HARTHIKRAJ ONLINE BUS RESERVATION SYSTEM</strong>. All rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

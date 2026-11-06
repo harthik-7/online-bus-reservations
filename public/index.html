@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HARTHIKRAJ | Online Bus Reservation System - Your Journey, Our Responsibility</title>
+  <meta name="description" content="Book premium bus tickets across India with HARTHIKRAJ. Enjoy luxury multi-axle sleeper buses, real-time GPS tracking, 24/7 passenger assistance, and best fares.">
+  <link rel="icon" type="image/svg+xml" href="images/logo.svg">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Master Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       NAVIGATION BAR
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo" aria-label="HARTHIKRAJ Home">
+        <img src="images/logo.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="nav-links">
+        <div class="nav-item">
+          <a href="index.html" class="nav-link active">
+            <i class="fa-solid fa-house"></i> Home
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="about.html" class="nav-link">
+            <i class="fa-solid fa-circle-info"></i> About Us
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="buses.html" class="nav-link">
+            <i class="fa-solid fa-bus"></i> Available Buses
+          </a>
+        </div>
+        <div class="nav-item">
+          <a href="my-bookings.html" class="nav-link">
+            <i class="fa-solid fa-ticket"></i> My Bookings
+          </a>
+        </div>
+      </nav>
+
+      <!-- Account Actions (Desktop) -->
+      <div class="nav-actions">
+        <div id="navAuthContainer">
+          <a href="login.html" class="btn btn-primary btn-sm">
+            <i class="fa-solid fa-user-circle"></i> Login / Register
+          </a>
+        </div>
+        <button class="hamburger" aria-label="Toggle Navigation Drawer">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <aside class="mobile-nav-drawer">
+    <a href="index.html" class="mobile-nav-link active">
+      <i class="fa-solid fa-house"></i> Home
+    </a>
+    <a href="about.html" class="mobile-nav-link">
+      <i class="fa-solid fa-circle-info"></i> About Us
+    </a>
+    <a href="buses.html" class="mobile-nav-link">
+      <i class="fa-solid fa-bus"></i> Available Buses
+    </a>
+    <a href="my-bookings.html" class="mobile-nav-link">
+      <i class="fa-solid fa-ticket"></i> My Bookings
+    </a>
+    <div class="mobile-nav-actions" id="mobileNavActions">
+      <a href="login.html" class="btn btn-primary">
+        <i class="fa-solid fa-user-circle"></i> Login / Register
+      </a>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       HERO SECTION WITH FLOATING SEARCH BOX
+       ========================================================================== -->
+  <section class="hero-section">
+    <div class="hero-overlay-shapes"></div>
+    <div class="container">
+      <div class="hero-content reveal">
+        <div class="hero-badge">
+          <i class="fa-solid fa-award"></i> India's Premier Road Travel Platform
+        </div>
+        <h1 class="hero-title">Your Journey, Our Responsibility</h1>
+        <p class="hero-subtitle">
+          Travel smarter, book faster and explore destinations with HARTHIKRAJ. Experience ultra-luxury coaches, punctual schedules and guaranteed seat security.
+        </p>
+      </div>
+
+      <!-- Floating Bus Search Card -->
+      <div class="search-box-card reveal">
+        <form id="heroBusSearchForm" action="buses.html" method="GET">
+          <div class="search-form-grid">
+            
+            <!-- From City -->
+            <div class="search-field">
+              <i class="fa-solid fa-location-dot"></i>
+              <label for="fromCity">Leaving From</label>
+              <input type="text" id="fromCity" name="source" value="Kurnool" placeholder="Source City" required list="citySuggestions">
+            </div>
+
+            <!-- Swap Locations Button -->
+            <button type="button" class="swap-btn" id="swapLocationsBtn" title="Swap Source and Destination">
+              <i class="fa-solid fa-right-left"></i>
+            </button>
+
+            <!-- To City -->
+            <div class="search-field">
+              <i class="fa-solid fa-map-pin"></i>
+              <label for="toCity">Going To</label>
+              <input type="text" id="toCity" name="destination" value="Hyderabad" placeholder="Destination City" required list="citySuggestions">
+            </div>
+
+            <!-- Journey Date -->
+            <div class="search-field">
+              <i class="fa-regular fa-calendar-days"></i>
+              <label for="journeyDate">Date of Journey</label>
+              <input type="date" id="journeyDate" name="date" required>
+            </div>
+
+            <!-- Search Buses Button -->
+            <div class="search-btn-col">
+              <button type="submit" class="btn btn-accent btn-lg" style="width:100%;">
+                <i class="fa-solid fa-magnifying-glass"></i> Search Buses
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Datalist for Cities -->
+          <datalist id="citySuggestions">
+            <option value="Kurnool">
+            <option value="Hyderabad">
+            <option value="Bangalore">
+            <option value="Dhone">
+            <option value="Nandyal">
+          </datalist>
+
+          <!-- Quick Route Suggestions -->
+          <div class="search-quick-routes">
+            <span class="quick-route-label"><i class="fa-solid fa-fire" style="color:var(--accent);"></i> Available Database Routes:</span>
+            <span class="route-chip" onclick="quickFillRoute('Kurnool', 'Hyderabad')">Kurnool ⇄ Hyderabad</span>
+            <span class="route-chip" onclick="quickFillRoute('Bangalore', 'Kurnool')">Bangalore ⇄ Kurnool</span>
+            <span class="route-chip" onclick="quickFillRoute('Dhone', 'Nandyal')">Dhone ⇄ Nandyal</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       STATS COUNTER BANNER
+       ========================================================================== -->
+  <div class="container">
+    <div class="stats-banner reveal">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="stat-number" data-target="1500000" data-suffix="+">1.5M+</div>
+          <div class="stat-label">Happy Travelers Served</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fa-solid fa-route"></i>
+          </div>
+          <div class="stat-number" data-target="10000" data-suffix="+">10,000+</div>
+          <div class="stat-label">Daily Intercity Routes</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fa-solid fa-bus-simple"></i>
+          </div>
+          <div class="stat-number" data-target="2500" data-suffix="+">2,500+</div>
+          <div class="stat-label">Premium Fleet Coaches</div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <div class="stat-number" data-target="4.9" data-suffix="★">4.9★</div>
+          <div class="stat-label">Average Customer Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SPECIAL TRAVEL OFFERS & PROMO CODES
+       ========================================================================== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Exclusive Savings</span>
+        <h2 class="section-title">Special Travel <span>Offers & Deals</span></h2>
+        <p class="section-subtitle">
+          Save more on every journey. Apply these verified promo codes during checkout for instant discounts and cashback.
+        </p>
+      </div>
+
+      <div class="offers-grid">
+        <!-- Offer 1 -->
+        <div class="offer-card reveal">
+          <div class="offer-card-top">
+            <span class="badge badge-accent">First Trip Special</span>
+            <div class="offer-discount">₹200 OFF</div>
+          </div>
+          <div class="offer-card-body">
+            <h4>Welcome to HARTHIKRAJ</h4>
+            <p>Get flat ₹200 off on your very first bus booking across any luxury sleeper coach route.</p>
+            <div class="offer-coupon-box">
+              <span class="coupon-code">FIRSTTRIP</span>
+              <button class="copy-coupon-btn" onclick="copyCoupon('FIRSTTRIP')">
+                <i class="fa-regular fa-copy"></i> Copy Code
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Offer 2 -->
+        <div class="offer-card reveal">
+          <div class="offer-card-top">
+            <span class="badge badge-primary">Super Saver</span>
+            <div class="offer-discount">15% OFF</div>
+          </div>
+          <div class="offer-card-body">
+            <h4>Multi-Axle Superbus Pass</h4>
+            <p>Enjoy a 15% discount on all Scania & Volvo multi-axle journeys booked 3 days in advance.</p>
+            <div class="offer-coupon-box">
+              <span class="coupon-code">SUPERBUS</span>
+              <button class="copy-coupon-btn" onclick="copyCoupon('SUPERBUS')">
+                <i class="fa-regular fa-copy"></i> Copy Code
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Offer 3 -->
+        <div class="offer-card reveal">
+          <div class="offer-card-top">
+            <span class="badge badge-success">Weekend Gateway</span>
+            <div class="offer-discount">₹150 OFF</div>
+          </div>
+          <div class="offer-card-body">
+            <h4>Friday to Sunday Trips</h4>
+            <p>Planning a weekend escape? Claim ₹150 instant rebate on round-trip reservations.</p>
+            <div class="offer-coupon-box">
+              <span class="coupon-code">WEEKEND</span>
+              <button class="copy-coupon-btn" onclick="copyCoupon('WEEKEND')">
+                <i class="fa-regular fa-copy"></i> Copy Code
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Offer 4 -->
+        <div class="offer-card reveal">
+          <div class="offer-card-top">
+            <span class="badge badge-warning">Student Privilege</span>
+            <div class="offer-discount">FLAT 10%</div>
+          </div>
+          <div class="offer-card-body">
+            <h4>College & University Pass</h4>
+            <p>Special subsidized fares for verified students heading back to campuses or home.</p>
+            <div class="offer-coupon-box">
+              <span class="coupon-code">STUDENT10</span>
+              <button class="copy-coupon-btn" onclick="copyCoupon('STUDENT10')">
+                <i class="fa-regular fa-copy"></i> Copy Code
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       POPULAR BUS ROUTES
+       ========================================================================== -->
+  <section class="section" style="background:#FFFFFF; border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Top Destinations</span>
+        <h2 class="section-title">Popular Bus <span>Routes</span></h2>
+        <p class="section-subtitle">
+          Connecting major metropolitan hubs and tourist corridors with frequent departures, zero waiting time, and comfortable sleeper coaches.
+        </p>
+      </div>
+
+      <div class="routes-grid">
+        <!-- Route 1 -->
+        <div class="route-card reveal">
+          <div class="route-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1596176530529-78163a4f7af2?auto=format&fit=crop&w=600&q=80" alt="Bangalore Highway">
+            <div class="route-price-tag">Starting from <span>₹850</span></div>
+          </div>
+          <div class="route-card-content">
+            <div class="route-city-header">
+              <h4>Chennai</h4>
+              <i class="fa-solid fa-arrow-right-long route-arrow"></i>
+              <h4>Bangalore</h4>
+            </div>
+            <div class="route-details">
+              <span><i class="fa-regular fa-clock"></i> 6h 30m</span>
+              <span><i class="fa-solid fa-bus"></i> 18 Buses Daily</span>
+            </div>
+            <a href="buses.html?from=Chennai&to=Bangalore" class="btn btn-outline btn-sm">
+              View Schedules <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Route 2 -->
+        <div class="route-card reveal">
+          <div class="route-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=600&q=80" alt="Hyderabad City">
+            <div class="route-price-tag">Starting from <span>₹1,150</span></div>
+          </div>
+          <div class="route-card-content">
+            <div class="route-city-header">
+              <h4>Bangalore</h4>
+              <i class="fa-solid fa-arrow-right-long route-arrow"></i>
+              <h4>Hyderabad</h4>
+            </div>
+            <div class="route-details">
+              <span><i class="fa-regular fa-clock"></i> 8h 45m</span>
+              <span><i class="fa-solid fa-bus"></i> 14 Buses Daily</span>
+            </div>
+            <a href="buses.html?from=Bangalore&to=Hyderabad" class="btn btn-outline btn-sm">
+              View Schedules <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Route 3 -->
+        <div class="route-card reveal">
+          <div class="route-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=600&q=80" alt="Coimbatore Route">
+            <div class="route-price-tag">Starting from <span>₹750</span></div>
+          </div>
+          <div class="route-card-content">
+            <div class="route-city-header">
+              <h4>Chennai</h4>
+              <i class="fa-solid fa-arrow-right-long route-arrow"></i>
+              <h4>Coimbatore</h4>
+            </div>
+            <div class="route-details">
+              <span><i class="fa-regular fa-clock"></i> 7h 15m</span>
+              <span><i class="fa-solid fa-bus"></i> 22 Buses Daily</span>
+            </div>
+            <a href="buses.html?from=Chennai&to=Coimbatore" class="btn btn-outline btn-sm">
+              View Schedules <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Route 4 -->
+        <div class="route-card reveal">
+          <div class="route-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1567157577867-05ccb1388e66?auto=format&fit=crop&w=600&q=80" alt="Mumbai Pune Expressway">
+            <div class="route-price-tag">Starting from <span>₹450</span></div>
+          </div>
+          <div class="route-card-content">
+            <div class="route-city-header">
+              <h4>Mumbai</h4>
+              <i class="fa-solid fa-arrow-right-long route-arrow"></i>
+              <h4>Pune</h4>
+            </div>
+            <div class="route-details">
+              <span><i class="fa-regular fa-clock"></i> 3h 30m</span>
+              <span><i class="fa-solid fa-bus"></i> 35 Buses Daily</span>
+            </div>
+            <a href="buses.html?from=Mumbai&to=Pune" class="btn btn-outline btn-sm">
+              View Schedules <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FEATURED BUS FLEET SERVICES
+       ========================================================================== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Fleet Standard</span>
+        <h2 class="section-title">Featured Bus <span>Services</span></h2>
+        <p class="section-subtitle">
+          Engineered for supreme comfort on long journeys. Choose from our luxury multi-axle fleet equipped with modern conveniences.
+        </p>
+      </div>
+
+      <div class="fleet-grid">
+        <!-- Fleet Card 1 -->
+        <div class="fleet-card reveal">
+          <div class="fleet-image">
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="Volvo Multi-Axle Sleeper">
+            <span class="fleet-badge">Flagship Class</span>
+          </div>
+          <div class="fleet-body">
+            <h3>HARTHIKRAJ Volvo Dreamliner (2+1)</h3>
+            <p>Aerodynamic multi-axle luxury sleeper with air suspension, memory foam berths, and noise cancellation.</p>
+            <div class="fleet-amenities">
+              <span class="amenity-pill"><i class="fa-solid fa-wifi"></i> 5G Wi-Fi</span>
+              <span class="amenity-pill"><i class="fa-solid fa-plug"></i> USB-C Port</span>
+              <span class="amenity-pill"><i class="fa-solid fa-tv"></i> LED Screen</span>
+              <span class="amenity-pill"><i class="fa-solid fa-snowflake"></i> Climate Control</span>
+            </div>
+            <a href="buses.html" class="btn btn-secondary btn-sm" style="width:100%;">Find Available Buses</a>
+          </div>
+        </div>
+
+        <!-- Fleet Card 2 -->
+        <div class="fleet-card reveal">
+          <div class="fleet-image">
+            <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=800&q=80" alt="Scania Metrolink">
+            <span class="fleet-badge">Executive Class</span>
+          </div>
+          <div class="fleet-body">
+            <h3>Scania Metrolink Multi-Axle AC</h3>
+            <p>Ultra-smooth ergonomic push-back reclining seats with expansive legroom, footrests, and calf support.</p>
+            <div class="fleet-amenities">
+              <span class="amenity-pill"><i class="fa-solid fa-bottle-water"></i> Mineral Water</span>
+              <span class="amenity-pill"><i class="fa-solid fa-bed"></i> Fresh Blanket</span>
+              <span class="amenity-pill"><i class="fa-solid fa-plug"></i> Power Socket</span>
+              <span class="amenity-pill"><i class="fa-solid fa-shield-halved"></i> Live GPS</span>
+            </div>
+            <a href="buses.html" class="btn btn-secondary btn-sm" style="width:100%;">Find Available Buses</a>
+          </div>
+        </div>
+
+        <!-- Fleet Card 3 -->
+        <div class="fleet-card reveal">
+          <div class="fleet-image">
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="BharatBenz Luxury Coach">
+            <span class="fleet-badge">Grand Luxury</span>
+          </div>
+          <div class="fleet-body">
+            <h3>BharatBenz Glider Air-Suspension</h3>
+            <p>State-of-the-art German engineering delivering zero vibration, electronic stability, and sanitized privacy pods.</p>
+            <div class="fleet-amenities">
+              <span class="amenity-pill"><i class="fa-solid fa-wifi"></i> Wi-Fi Hotspot</span>
+              <span class="amenity-pill"><i class="fa-solid fa-video"></i> CCTV Security</span>
+              <span class="amenity-pill"><i class="fa-solid fa-mug-hot"></i> Coffee Maker</span>
+              <span class="amenity-pill"><i class="fa-solid fa-shield-halved"></i> SOS Emergency</span>
+            </div>
+            <a href="buses.html" class="btn btn-secondary btn-sm" style="width:100%;">Find Available Buses</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       WHY CHOOSE HARTHIKRAJ
+       ========================================================================== */ -->
+  <section class="section" style="background:var(--secondary-lighter);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">The Brand Difference</span>
+        <h2 class="section-title">Why Choose <span>HARTHIKRAJ?</span></h2>
+        <p class="section-subtitle">
+          "Your Journey, Our Responsibility" is not just our motto—it is our absolute commitment to your safety, punctuality, and comfort.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <h3>Guaranteed On-Time Departure</h3>
+          <p>We pride ourselves on an industry-leading 98.4% on-time departure rate. Receive instant SMS & WhatsApp tracking updates at every transit checkpoint.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <h3>Zero Booking Fees & Transparent Pricing</h3>
+          <p>No hidden convenience fees, surprise checkout add-ons, or unfair surges. What you see on the seat map is the exact price you pay.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-shield-heart"></i>
+          </div>
+          <h3>Rigorous Safety & Sanitization</h3>
+          <p>Every coach undergoes a 32-point mechanical inspection and complete cabin UV sanitization prior to boarding. Dual professional drivers on overnight runs.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <h3>24x7 Dedicated Passenger Assistance</h3>
+          <p>Our passenger support control room is awake around the clock. Call, WhatsApp, or raise a ticket anytime for immediate boarding assistance.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </div>
+          <h3>Instant Refunds & Free Rescheduling</h3>
+          <p>Change in travel plans? Cancel with a single click and enjoy 100% instant refund credit or free schedule transfer up to 4 hours before departure.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon-wrapper">
+            <i class="fa-solid fa-satellite-dish"></i>
+          </div>
+          <h3>Live GPS Geofenced Fleet Tracking</h3>
+          <p>Share live bus telemetry and precise ETA with family members. Receive geofenced arrival notifications 15 minutes before your boarding point.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       HOW IT WORKS SECTION
+       ========================================================================== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Seamless Booking Process</span>
+        <h2 class="section-title">How It <span>Works</span></h2>
+        <p class="section-subtitle">
+          Book your dream coach seat in under 60 seconds with our streamlined 4-step reservation engine.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-num-bubble">01</div>
+          <h4>Search Your Route</h4>
+          <p>Select your origin, destination city, and travel date to explore all available scheduled buses.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <div class="step-num-bubble">02</div>
+          <h4>Select Your Seats</h4>
+          <p>Explore our interactive graphic bus seat layout. Choose window seats, lower or upper deck sleeper berths.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <div class="step-num-bubble">03</div>
+          <h4>Enter Passenger Info</h4>
+          <p>Add passenger details, choose convenient boarding points, and apply discount promo codes.</p>
+        </div>
+
+        <div class="step-card reveal">
+          <div class="step-num-bubble">04</div>
+          <h4>Instant M-Ticket Confirmation</h4>
+          <p>Receive your digital boarding pass with scannable QR code immediately. Ready to board without printing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CUSTOMER TESTIMONIALS
+       ========================================================================== -->
+  <section class="section" style="background:#FFFFFF; border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Verified Passenger Reviews</span>
+        <h2 class="section-title">What Travelers <span>Say</span></h2>
+        <p class="section-subtitle">
+          Over 1.5 million satisfied passengers trust HARTHIKRAJ for their road journeys across South and Western India.
+        </p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Review 1 -->
+        <div class="testimonial-card reveal">
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-quote">
+            "The Chennai to Bangalore Dreamliner coach was an absolute luxury experience! Punctual boarding at Koyambedu, spotless clean bedsheets, fast Wi-Fi, and courteous driver staff. HARTHIKRAJ is now my default travel choice."
+          </p>
+          <div class="passenger-profile">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Ananya Krishnan" class="passenger-avatar">
+            <div class="passenger-info">
+              <h5>Ananya Krishnan</h5>
+              <span>Senior IT Consultant, Bangalore</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="testimonial-card reveal">
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-quote">
+            "Live GPS tracking was a blessing for my family—my parents could track my bus in real time until I reached Hyderabad. The seat booking layout was effortless and the ticket confirmation was instant. Exceptional service!"
+          </p>
+          <div class="passenger-profile">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Karthik Subramanian" class="passenger-avatar">
+            <div class="passenger-info">
+              <h5>Karthik Subramanian</h5>
+              <span>Product Designer, Hyderabad</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="testimonial-card reveal">
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-quote">
+            "I travel between Mumbai and Pune weekly. HARTHIKRAJ's Scania coaches are unmatched in seat ergonomics and smooth suspension. The zero hidden fees and clean dashboard for my tickets make the whole experience seamless."
+          </p>
+          <div class="passenger-profile">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80" alt="Rohan Verma" class="passenger-avatar">
+            <div class="passenger-info">
+              <h5>Rohan Verma</h5>
+              <span>Entrepreneur, Mumbai</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CALL TO ACTION BANNER
+       ========================================================================== -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner reveal">
+        <div class="cta-content">
+          <h2>Ready to Experience World-Class Bus Travel?</h2>
+          <p>
+            Join over 1.5 million smart travelers. Book your bus in minutes and travel in absolute comfort, luxury and safety with HARTHIKRAJ.
+          </p>
+          <div class="cta-btn-group">
+            <a href="buses.html" class="btn btn-accent btn-lg">
+              <i class="fa-solid fa-ticket"></i> Book Your Bus Now
+            </a>
+            <a href="about.html" class="btn btn-outline-white btn-lg">
+              <i class="fa-solid fa-circle-info"></i> Discover Our Fleet
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PROFESSIONAL FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand Info -->
+        <div class="footer-col-brand">
+          <a href="index.html">
+            <img src="images/logo-white.svg" alt="HARTHIKRAJ Online Bus Reservation System">
+          </a>
+          <p>
+            HARTHIKRAJ is India's leading digital passenger transportation network, connecting cities through ultra-modern luxury coaches with safety, punctuality, and passenger delight.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="social-btn" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="social-btn" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i> About Us</a></li>
+            <li><a href="buses.html"><i class="fa-solid fa-angle-right"></i> Available Buses</a></li>
+            <li><a href="my-bookings.html"><i class="fa-solid fa-angle-right"></i> My Bookings</a></li>
+            <li><a href="login.html"><i class="fa-solid fa-angle-right"></i> Login / Register</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Popular Routes -->
+        <div class="footer-col">
+          <h4>Top Bus Routes</h4>
+          <ul class="footer-links">
+            <li><a href="buses.html?from=Chennai&to=Bangalore"><i class="fa-solid fa-angle-right"></i> Chennai to Bangalore</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Hyderabad"><i class="fa-solid fa-angle-right"></i> Bangalore to Hyderabad</a></li>
+            <li><a href="buses.html?from=Chennai&to=Coimbatore"><i class="fa-solid fa-angle-right"></i> Chennai to Coimbatore</a></li>
+            <li><a href="buses.html?from=Mumbai&to=Pune"><i class="fa-solid fa-angle-right"></i> Mumbai to Pune</a></li>
+            <li><a href="buses.html?from=Bangalore&to=Kochi"><i class="fa-solid fa-angle-right"></i> Bangalore to Kochi</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: 24/7 Helpline & Newsletter -->
+        <div class="footer-col">
+          <h4>24x7 Help Desk</h4>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Passenger Helpline:</strong>
+              1800-2026-RAJ (Toll Free) / +91 44 2889 0000
+            </div>
+          </div>
+          <div class="footer-contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <strong style="color:#FFFFFF; display:block;">Email Support:</strong>
+              support@harthikrajbus.com
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;">
+            <p style="font-size:0.85rem; color:#9FB3C8; margin-bottom:0.6rem;">Get weekly discounts & trip updates:</p>
+            <form id="newsletterForm" style="display:flex; gap:0.5rem;">
+              <input type="email" placeholder="Your email address" required style="padding:0.6rem 0.85rem; border-radius:8px; border:1px solid #334E68; background:#0B1D2F; color:#FFFFFF; font-size:0.85rem; flex:1; outline:none;">
+              <button type="submit" class="btn btn-accent btn-sm">Join</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Copyright Bar -->
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <div>
+          &copy; 2026 <strong>HARTHIKRAJ ONLINE BUS RESERVATION SYSTEM</strong>. All rights reserved.
+        </div>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Security</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container & Back to Top (Automated via main.js) -->
+
+  <!-- JavaScript Scripts -->
+  <script src="js/main.js"></script>
+  <script>
+    // Set default date for journey date picker to tomorrow
+    const dateInput = document.getElementById('journeyDate');
+    if (dateInput) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const minStr = tomorrow.toISOString().split('T')[0];
+      dateInput.value = minStr;
+      dateInput.min = new Date().toISOString().split('T')[0];
+    }
+
+    // Quick fill helper for chips
+    function quickFillRoute(from, to) {
+      document.getElementById('fromCity').value = from;
+      document.getElementById('toCity').value = to;
+      window.showToast(`Route set to ${from} ⇄ ${to}`, 'info', 2000);
+    }
+  </script>
+</body>
+</html>
